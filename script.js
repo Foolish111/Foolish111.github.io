@@ -111,50 +111,56 @@ const verbs = [
 
 ];
 
-function generateVerbs(numVerbs, mode) {
+function generateVerbs() {
+    const numVerbs = document.getElementById("numVerbs").value;
+    const mode = document.getElementById("mode").value;
+
     const verbsContainer = document.getElementById("verbsContainer");
     verbsContainer.innerHTML = "";
 
+    // Ajout du header de la grille
+    const gridHeader = document.createElement("div");
+    gridHeader.classList.add("grid-header");
+    gridHeader.innerHTML = `
+        <div>Infinitif</div>
+        <div>Présent</div>
+        <div>Prétérit</div>
+        <div>Parfait</div>
+        <div>Traduction</div>
+    `;
+    verbsContainer.appendChild(gridHeader);
+
+    // Ajout des verbes dans la grille
     for (let i = 0; i < numVerbs; i++) {
         const verb = verbs[i];
         const verbDiv = document.createElement("div");
+        verbDiv.classList.add("grid-item");
 
         // Affiche ou masque les cases en fonction du mode
         const displayMode = mode === "random" ? "none" : "block";
 
         verbDiv.innerHTML = `
-            <p>${i + 1}. Infinitif: ${verb.infinitif}</p>
-            <p style="display: ${displayMode};">Présent: <input type="text" id="present_${i}"></p>
-            <p style="display: ${displayMode};">Prétérit: <input type="text" id="preterit_${i}"></p>
-            <p style="display: ${displayMode};">Parfait: <input type="text" id="parfait_${i}"></p>
+            <div>${verb.infinitif}</div>
+            <div style="display: ${displayMode};">${verb.present}</div>
+            <div style="display: ${displayMode};">${verb.preterit}</div>
+            <div style="display: ${displayMode};">${verb.parfait}</div>
+            <div>${verb.traduction}</div>
         `;
 
         verbsContainer.appendChild(verbDiv);
     }
 }
 
-// Fonction pour calculer la note
 function calculateScore() {
     const numVerbs = document.getElementById("numVerbs").value;
     const mode = document.getElementById("mode").value;
     let score = 0;
 
-    for (let i = 0; i < numVerbs; i++) {
-        const verb = verbs[i];
+    // ... Votre fonction de calcul de score ...
 
-        // Vérifie les réponses en fonction du mode
-        if (mode === "all" || mode === "random") {
-            const presentInput = document.getElementById(`present_${i}`).value.toLowerCase();
-            const preteritInput = document.getElementById(`preterit_${i}`).value.toLowerCase();
-            const parfaitInput = document.getElementById(`parfait_${i}`).value.toLowerCase();
-
-            if (presentInput === verb.present.toLowerCase() &&
-                preteritInput === verb.preterit.toLowerCase() &&
-                parfaitInput === verb.parfait.toLowerCase()) {
-                score++;
-            }
-        }
-    }
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `<p>Votre note : ${score}/${numVerbs * 3}</p>`;
+}
 
     const resultDiv = document.getElementById("result");
     resultDiv.innerHTML = `<p>Votre note : ${score}/${numVerbs * 3}</p>`;
