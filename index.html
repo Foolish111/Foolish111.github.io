@@ -21,9 +21,17 @@
         </select>
     </div>
 
-    <div id="verbsContainer">
+    <div id="verbsContainer" class="grid-container">
+        <div class="grid-header">
+            <div>Infinitif</div>
+            <div>Présent</div>
+            <div>Prétérit</div>
+            <div>Parfait</div>
+            <div>Traduction</div>
+        </div>
     </div>
 
+    <button onclick="generateVerbs()">Générer les verbes</button>
     <button onclick="calculateScore()">Calculer la note</button>
     <div id="result"></div>
 
